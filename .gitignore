@@ -1,0 +1,13 @@
+packages/
+*/obj/
+*/bin/
+*/csx/
+*/rcf/
+*.suo
+*.user
+*.stackdump
+/.vs/config
+/Backup
+/UpgradeLog.htm
+*.log
+.vs
