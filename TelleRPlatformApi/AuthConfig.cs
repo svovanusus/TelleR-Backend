@@ -16,7 +16,7 @@ namespace TelleRPlatformApi
 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
+            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Base64UrlEncoder.Encode(KEY)));
         }
     }
 }

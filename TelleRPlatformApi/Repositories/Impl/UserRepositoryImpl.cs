@@ -19,7 +19,7 @@ namespace TelleRPlatformApi.Repositories.Impl
 
         public User GetByUsername(String username)
         {
-            return DbSet.First(x => x.Username == username);
+            return DbSet.FirstOrDefault(x => x.Username == username);
         }
     }
 }

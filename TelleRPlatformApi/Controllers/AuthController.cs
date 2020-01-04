@@ -43,8 +43,9 @@ namespace TelleRPlatformApi.Controllers
                    notBefore: now,
                    claims: new List<Claim>
                    {
-                       new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
-                       new Claim(ClaimsIdentity.DefaultRoleClaimType, "User")
+                       new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                       new Claim(ClaimTypes.Name, user.Username),
+                       new Claim(ClaimTypes.Role, user.Role.ToString())
                    },
                    expires: now.Add(TimeSpan.FromSeconds(AuthConfig.LIFETIME)),
                    signingCredentials: new SigningCredentials(AuthConfig.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
@@ -52,7 +53,6 @@ namespace TelleRPlatformApi.Controllers
 
             return new
             {
-                user = user,
                 token = encodedJwt
             };
         }

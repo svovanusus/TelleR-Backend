@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,12 +30,25 @@ namespace TelleRPlatformApi.Controllers
             _uow = uow;
         }
 
-        [HttpGet]
+        [HttpGet("/test")]
         [Authorize]
+        public String Test()
+        {
+            return User.FindFirst(ClaimsIdentity.DefaultNameClaimType).Value; 
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperUser")]
         public IEnumerable<User> Get()
         {
-            
             return _uow.GetRepository<IUserRepository>().GetAll().ToArray();
+        }
+
+        [HttpGet("/isrole")]
+        [Authorize]
+        public Boolean IsAuth()
+        {
+            return User.IsInRole("SuperUser");
         }
     }
 }

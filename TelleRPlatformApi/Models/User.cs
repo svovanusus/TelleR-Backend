@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TelleRPlatformApi.Enums;
 
 namespace TelleRPlatformApi.Models
 {
@@ -39,6 +40,9 @@ namespace TelleRPlatformApi.Models
 
         [DefaultValue(false)]
         public Boolean IsBlocked { get; set; }
+
+        [DefaultValue(UserRole.User)]
+        public UserRole Role { get; set; }
 
         public DateTime CreateDate { get; set; }
 
