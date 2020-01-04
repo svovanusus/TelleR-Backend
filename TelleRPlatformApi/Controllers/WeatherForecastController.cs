@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TelleRPlatformApi.Models;
+using TelleRPlatformApi.Repositories;
+using TelleRPlatformApi.Tools.UnitOfWork;
 
 namespace TelleRPlatformApi.Controllers
 {
@@ -17,23 +21,20 @@ namespace TelleRPlatformApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly UnitOfWork<AppDbContext> _uow;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, UnitOfWork<AppDbContext> uow)
         {
             _logger = logger;
+            _uow = uow;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [Authorize]
+        public IEnumerable<User> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            
+            return _uow.GetRepository<IUserRepository>().GetAll().ToArray();
         }
     }
 }
