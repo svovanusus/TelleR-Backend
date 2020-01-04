@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using TelleRPlatformApi.Dto;
+using TelleRPlatformApi.Dto.Request;
 using TelleRPlatformApi.Repositories;
-using TelleRPlatformApi.Tools.UnitOfWork;
+using TelleRPlatformApi.UnitOfWork;
 
 namespace TelleRPlatformApi.Controllers
 {

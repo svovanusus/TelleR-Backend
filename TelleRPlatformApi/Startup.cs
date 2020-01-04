@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using TelleRPlatformApi.Tools.UnitOfWork;
+using TelleRPlatformApi.UnitOfWork;
 using TelleRPlatformApi.Repositories;
 using TelleRPlatformApi.Repositories.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

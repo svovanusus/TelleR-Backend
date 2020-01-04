@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200104103747_Added UserRole to Usr entity.cs" />
     <Compile Remove="Migrations\20200104103747_Added UserRole to Usr entity.Designer.cs" />
+    <Compile Remove="Migrations\20200104141012_Added Post entity.cs" />
+    <Compile Remove="Migrations\20200104141012_Added Post entity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dto\Response\" />
+    <Folder Include="Tools\" />
   </ItemGroup>
 
 

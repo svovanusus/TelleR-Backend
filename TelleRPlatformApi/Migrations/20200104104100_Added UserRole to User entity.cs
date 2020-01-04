@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using TelleRPlatformApi.Models;
+using TelleRPlatformApi.Enums;
 
 namespace TelleRPlatformApi.Migrations
 {

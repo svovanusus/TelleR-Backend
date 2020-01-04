@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TelleRPlatformApi.Dto
+namespace TelleRPlatformApi.Dto.Request
 {
     public class AuthDto
     {

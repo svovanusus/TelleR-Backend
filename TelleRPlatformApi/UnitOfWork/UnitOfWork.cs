@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TelleRPlatformApi.Tools.UnitOfWork
+namespace TelleRPlatformApi.UnitOfWork
 {
     public class UnitOfWork<TContext>
         where TContext : DbContext

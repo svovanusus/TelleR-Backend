@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TelleRPlatformApi.Models;
-using TelleRPlatformApi.Tools.UnitOfWork;
+using TelleRPlatformApi.UnitOfWork;
 
 namespace TelleRPlatformApi.Repositories.Impl
 {
