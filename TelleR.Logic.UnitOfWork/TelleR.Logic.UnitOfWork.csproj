@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unity" Version="5.11.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Teller.Data\TelleR.Data.csproj" />
+    <ProjectReference Include="..\TelleR.Unity\TelleR.Unity.csproj" />
+  </ItemGroup>
+
+</Project>

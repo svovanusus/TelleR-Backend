@@ -1,22 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using TelleRPlatformApi.UnitOfWork;
-using TelleRPlatformApi.Repositories;
-using TelleRPlatformApi.Repositories.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using TelleR.Configuration;
+using Microsoft.EntityFrameworkCore;
+using TelleR.Data.Contexts;
+using System;
+using TelleR.Unity;
+using Autofac.Extensions.DependencyInjection;
+using Unity;
+using TelleR.Logic.Services;
+using TelleR.Logic.Services.Impl;
+using TelleR.Logic.Tools;
+using TelleR.Logic.Tools.Impl;
 
 namespace TelleRPlatformApi
 {
@@ -33,10 +32,7 @@ namespace TelleRPlatformApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DebugConnectionStringMainDatabase")));
-            services.AddScoped<UnitOfWork<AppDbContext>>();
-
-            services.AddScoped<IUserRepository, UserRepositoryImpl>();
+            services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DebugConnectionStringMainDatabase"), x => x.MigrationsAssembly("TelleR.Migrations")));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -56,6 +52,12 @@ namespace TelleRPlatformApi
                         IssuerSigningKey = AuthConfig.GetSymmetricSecurityKey()
                     };
                 });
+
+            services.AddSingleton<IUnityContainer>(UnityContainerFactory.Container);
+            services.AddScoped<ITellerDatabaseUnitOfWorkFactory, TellerDatabaseUnitOfWorkFactoryImpl>();
+
+            services.AddScoped<IAwsService, AwsServiceImpl>();
+            services.AddScoped<IBlogService, BlogServiceImpl>();
 
             services.AddControllers();
         }

@@ -1,60 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using TelleRPlatformApi.Dto.Request;
-using TelleRPlatformApi.Repositories;
-using TelleRPlatformApi.UnitOfWork;
+using TelleR.Configuration;
+using TelleR.Data.Dto.Request;
+using TelleR.Data.Dto.Response;
+using TelleR.Logic.Repositories;
+using TelleR.Logic.Tools;
 
 namespace TelleRPlatformApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private UnitOfWork<AppDbContext> _uow;
+        private readonly ITellerDatabaseUnitOfWorkFactory _tellerDatabaseUnitOfWorkFactory;
 
-        public AuthController(UnitOfWork<AppDbContext> uow)
+        public AuthController(ITellerDatabaseUnitOfWorkFactory tellerDatabaseUnitOfWorkFactory)
         {
-            _uow = uow;
+            _tellerDatabaseUnitOfWorkFactory = tellerDatabaseUnitOfWorkFactory;
         }
 
         [HttpPost]
-        public Object GetToken([FromBody] AuthDto data)
+        public AuthResponseDto GetToken([FromBody] AuthDto data)
         {
-            var user = _uow.GetRepository<IUserRepository>().GetByUsername(data.username);
-
-            if (user == null || user.Password != data.password)
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
             {
-                Response.StatusCode = 401;
-                return new { };
+                var user = uow.GetRepository<IUserRepository>().GetByUsername(data.username);
+
+                if (user == null || user.Password != data.password)
+                {
+                    Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return null;
+                }
+
+                var now = DateTime.UtcNow;
+
+                var jwt = new JwtSecurityToken(
+                    issuer: AuthConfig.ISSUER,
+                    audience: AuthConfig.AUDIENCE,
+                    notBefore: now,
+                    claims: new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Name, user.Username),
+                        new Claim(ClaimTypes.Role, user.Role.ToString())
+                    },
+                    expires: now.Add(TimeSpan.FromSeconds(AuthConfig.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthConfig.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                return new AuthResponseDto
+                {
+                    Token = encodedJwt
+                };
             }
-
-            var now = DateTime.UtcNow;
-
-            var jwt = new JwtSecurityToken(
-                   issuer: AuthConfig.ISSUER,
-                   audience: AuthConfig.AUDIENCE,
-                   notBefore: now,
-                   claims: new List<Claim>
-                   {
-                       new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                       new Claim(ClaimTypes.Name, user.Username),
-                       new Claim(ClaimTypes.Role, user.Role.ToString())
-                   },
-                   expires: now.Add(TimeSpan.FromSeconds(AuthConfig.LIFETIME)),
-                   signingCredentials: new SigningCredentials(AuthConfig.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            return new
-            {
-                token = encodedJwt
-            };
         }
     }
 }
