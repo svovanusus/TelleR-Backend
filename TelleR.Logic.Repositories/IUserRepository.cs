@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TelleR.Data.Entities;
 
 namespace TelleR.Logic.Repositories
 {
     public interface IUserRepository
     {
-        User GetByUsername(String username);
+        Task<User> GetByUsername(String username);
 
-        User GetById(Int64 userId);
+        Task<User> GetById(Int64 userId);
 
-        IEnumerable<User> GetAll();
+        Task<IEnumerable<User>> GetAll();
     }
 }

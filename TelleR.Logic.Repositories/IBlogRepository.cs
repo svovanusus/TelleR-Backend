@@ -14,5 +14,7 @@ namespace TelleR.Logic.Repositories
         Task<Blog> GetByName(String blogName);
 
         Task<IEnumerable<Blog>> GetAll();
+
+        Task<IEnumerable<Blog>> GetAllByOwner(Int64 userId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TelleR.Data.Contexts;
 using TelleR.Data.Entities;
@@ -31,6 +32,12 @@ namespace TelleR.Logic.Repositories.Impl
         public Task<Blog> GetByName(String blogName)
         {
             return DbSet.Include(x => x.Owner).FirstOrDefaultAsync(x => x.Title == blogName);
+        }
+
+        public async Task<IEnumerable<Blog>> GetAllByOwner(Int64 userId)
+        {
+            var blogs = await DbSet.Include(x => x.Owner).Where(x => x.Owner.Id == userId).ToArrayAsync();
+            return blogs;
         }
     }
 }

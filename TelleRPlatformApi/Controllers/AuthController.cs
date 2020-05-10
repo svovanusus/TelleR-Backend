@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -17,19 +18,23 @@ namespace TelleRPlatformApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly ITellerDatabaseUnitOfWorkFactory _tellerDatabaseUnitOfWorkFactory;
+        #region constructors
 
         public AuthController(ITellerDatabaseUnitOfWorkFactory tellerDatabaseUnitOfWorkFactory)
         {
             _tellerDatabaseUnitOfWorkFactory = tellerDatabaseUnitOfWorkFactory;
         }
 
+        #endregion
+
+        #region public methods
+
         [HttpPost]
-        public AuthResponseDto GetToken([FromBody] AuthDto data)
+        public async Task<AuthResponseDto> GetToken([FromBody] AuthDto data)
         {
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
             {
-                var user = uow.GetRepository<IUserRepository>().GetByUsername(data.username);
+                var user = await uow.GetRepository<IUserRepository>().GetByUsername(data.username);
 
                 if (user == null || user.Password != data.password)
                 {
@@ -59,5 +64,13 @@ namespace TelleRPlatformApi.Controllers
                 };
             }
         }
+
+        #endregion
+
+        #region private fields
+
+        private readonly ITellerDatabaseUnitOfWorkFactory _tellerDatabaseUnitOfWorkFactory;
+
+        #endregion
     }
 }

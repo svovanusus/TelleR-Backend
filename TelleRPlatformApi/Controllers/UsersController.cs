@@ -29,11 +29,11 @@ namespace TelleRPlatformApi.Controllers
 
         [HttpGet]
         [Authorize(Roles = "SuperUser")]
-        public IEnumerable<UserResponseDto> GetAll()
+        public async Task<IEnumerable<UserResponseDto>> GetAll()
         {
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
             {
-                return uow.GetRepository<IUserRepository>().GetAll().Select(x => new UserResponseDto
+                return (await uow.GetRepository<IUserRepository>().GetAll()).Select(x => new UserResponseDto
                 {
                     Id = x.Id,
                     FullName = $"{ x.FirstName } { x.LastName }"
@@ -43,11 +43,11 @@ namespace TelleRPlatformApi.Controllers
 
         [HttpGet("user")]
         [Authorize]
-        public UserResponseDto Get(Int64 userId)
+        public async Task<UserResponseDto> Get(Int64 userId)
         {
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
             {
-                var user = uow.GetRepository<IUserRepository>().GetById(userId);
+                var user = await uow.GetRepository<IUserRepository>().GetById(userId);
                 if (user == null)
                 {
                     Response.StatusCode = StatusCodes.Status404NotFound;
@@ -64,7 +64,7 @@ namespace TelleRPlatformApi.Controllers
 
         [HttpGet("profile")]
         [Authorize]
-        public ProfileResponseDto GetProfile()
+        public async Task<ProfileResponseDto> GetProfile()
         {
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
             {
@@ -77,7 +77,7 @@ namespace TelleRPlatformApi.Controllers
                     return null;
                 }
 
-                var user = uow.GetRepository<IUserRepository>().GetById(UserId);
+                var user = await uow.GetRepository<IUserRepository>().GetById(UserId);
                 if (user == null)
                 {
                     Response.StatusCode = StatusCodes.Status403Forbidden;
