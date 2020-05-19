@@ -1,6 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using TelleR.Data.Enums;
 
 namespace TelleR.Data.Entities
@@ -9,34 +8,27 @@ namespace TelleR.Data.Entities
     {
         public Int64 Id { get; set; }
 
-        [MaxLength(30)]
-        [Required]
         public String FirstName { get; set; }
 
-        [MaxLength(30)]
-        [Required]
         public String LastName { get; set; }
 
-        [MaxLength(60)]
-        [Required]
         public String Email { get; set; }
 
-        [MaxLength(20)]
-        [Required]
         public String Username { get; set; }
 
-        [MaxLength(64)]
-        [Required]
         public String Password { get; set; }
 
-        [DefaultValue(false)]
         public Boolean IsActivate { get; set; }
 
-        [DefaultValue(false)]
         public Boolean IsBlocked { get; set; }
 
-        [DefaultValue(UserRole.User)]
         public UserRole Role { get; set; }
+
+        public virtual IEnumerable<Blog> Blogs { get; set; }
+
+        public virtual IEnumerable<Post> Posts { get; set; }
+
+        public virtual IEnumerable<Comment> Comments { get; set; }
 
         public DateTime CreateDate { get; set; }
 

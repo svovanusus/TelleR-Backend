@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TelleR.Data.Dto.Response;
+using TelleR.Data.Entities;
+using TelleR.Data.Enums;
 using TelleR.Logic.Repositories;
 using TelleR.Logic.Tools;
 
@@ -80,6 +82,39 @@ namespace TelleR.Logic.Services.Impl
                         FullName = $"{ x.Owner.FirstName } { x.Owner.LastName }"
                     }
                 });
+            }
+        }
+
+        public async Task<BlogResponseDto> CreateNew(String name, String title, String description, Boolean isPublic, BlogType type, Int64 ownerId)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
+            {
+                var owner = await uow.GetRepository<IUserRepository>().GetById(ownerId);
+
+                if (owner == null) return null;
+
+                var blog = new Blog {
+                    Name = name,
+                    Title = title,
+                    Description = description,
+                    IsPublic = isPublic,
+                    Type = type,
+                    Owner = owner
+                };
+
+                var savedBlog = await uow.GetRepository<IBlogRepository>().SaveOrUpdate(blog);
+                uow.Commit();
+
+                return new BlogResponseDto
+                {
+                    Id = savedBlog.Id,
+                    Title = savedBlog.Title,
+                    Author = new UserResponseDto
+                    {
+                        Id = savedBlog.Owner.Id,
+                        FullName = $"{ savedBlog.Owner.FirstName } { savedBlog.Owner.LastName }"
+                    }
+                };
             }
         }
 

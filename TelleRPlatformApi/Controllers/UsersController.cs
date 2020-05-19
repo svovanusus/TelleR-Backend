@@ -33,7 +33,7 @@ namespace TelleRPlatformApi.Controllers
         {
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
             {
-                return (await uow.GetRepository<IUserRepository>().GetAll()).Select(x => new UserResponseDto
+                return uow.GetRepository<IUserRepository>().GetAllQueryable().Select(x => new UserResponseDto
                 {
                     Id = x.Id,
                     FullName = $"{ x.FirstName } { x.LastName }"

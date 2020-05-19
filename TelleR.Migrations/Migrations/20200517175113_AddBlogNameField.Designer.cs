@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TelleR.Data.Contexts;
 
 namespace TelleR.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200517175113_AddBlogNameField")]
+    partial class AddBlogNameField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,11 +39,10 @@ namespace TelleR.Migrations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<long?>("OwnerId")
+                    b.Property<long>("OwnerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -52,13 +53,7 @@ namespace TelleR.Migrations.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.HasIndex("OwnerId");
 
@@ -72,13 +67,13 @@ namespace TelleR.Migrations.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AuthorId")
+                    b.Property<long>("AuthorId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("PostId")
+                    b.Property<long>("PostId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Text")
@@ -102,17 +97,13 @@ namespace TelleR.Migrations.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AuthorId")
+                    b.Property<long>("AuthorId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("BlogId")
+                    b.Property<long>("BlogId")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
@@ -128,8 +119,8 @@ namespace TelleR.Migrations.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(120)")
-                        .HasMaxLength(120);
+                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(60);
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -155,8 +146,8 @@ namespace TelleR.Migrations.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(120)")
-                        .HasMaxLength(120);
+                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(60);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -190,16 +181,10 @@ namespace TelleR.Migrations.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Username")
-                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -207,30 +192,40 @@ namespace TelleR.Migrations.Migrations
             modelBuilder.Entity("TelleR.Data.Entities.Blog", b =>
                 {
                     b.HasOne("TelleR.Data.Entities.User", "Owner")
-                        .WithMany("Blogs")
-                        .HasForeignKey("OwnerId");
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TelleR.Data.Entities.Comment", b =>
                 {
                     b.HasOne("TelleR.Data.Entities.User", "Author")
-                        .WithMany("Comments")
-                        .HasForeignKey("AuthorId");
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TelleR.Data.Entities.Post", "Post")
-                        .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TelleR.Data.Entities.Post", b =>
                 {
                     b.HasOne("TelleR.Data.Entities.User", "Author")
-                        .WithMany("Posts")
-                        .HasForeignKey("AuthorId");
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TelleR.Data.Entities.Blog", "Blog")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogId");
+                        .WithMany()
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -58,6 +58,10 @@ namespace TelleRPlatformApi
 
             services.AddScoped<IAwsService, AwsServiceImpl>();
             services.AddScoped<IBlogService, BlogServiceImpl>();
+            services.AddScoped<IPostService, PostServiceImpl>();
+            services.AddScoped<IUserService, UserServiceImpl>();
+
+            services.AddCors();
 
             services.AddControllers();
         }

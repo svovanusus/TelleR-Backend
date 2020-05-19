@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TelleR.Data.Contexts;
@@ -12,19 +12,56 @@ namespace TelleR.Logic.Repositories.Impl
     {
         public UserRepositoryImpl(UnitOfWorkBase<AppDbContext> uow) : base(uow) { }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public IQueryable<User> GetAllQueryable()
         {
-            return DbSet;
+            return DbSet.AsQueryable();
         }
 
         public async Task<User> GetById(long userId)
         {
-            return DbSet.FirstOrDefault(x => x.Id == userId);
+            return await DbSet.FirstOrDefaultAsync(x => x.Id == userId);
         }
 
         public async Task<User> GetByUsername(String username)
         {
-            return DbSet.FirstOrDefault(x => x.Username == username);
+            return await DbSet.FirstOrDefaultAsync(x => x.Username == username);
+        }
+
+        public async Task<User> GetByEmail(String email)
+        {
+            return await DbSet.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User> SaveOrUpdate(User model)
+        {
+            var entity = await DbSet.FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            if (entity == null)
+            {
+                // New
+                
+                model.CreateDate = DateTime.Now;
+                model.UpdateDate = DateTime.Now;
+                model.LastActive = DateTime.Now;
+                var saved = await DbSet.AddAsync(model);
+                return saved.Entity;
+            }
+            else {
+                // Update
+
+                entity.IsActivate = model.IsActivate;
+                entity.IsBlocked = model.IsBlocked;
+                entity.Username = model.Username;
+                entity.Password = model.Password;
+                entity.Email = model.Email;
+                entity.FirstName = model.FirstName;
+                entity.LastName = model.LastName;
+                entity.Role = model.Role;
+                entity.LastActive = DateTime.Now;
+                entity.UpdateDate = DateTime.Now;
+
+                return entity;
+            }
         }
     }
 }

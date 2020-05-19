@@ -12,7 +12,6 @@ namespace TelleR.Logic.UnitOfWork
             _container = container;
             Context = context;
             _container.RegisterInstance(typeof(UnitOfWorkBase<TContext>), this);
-            //_container.RegisterInstance(this);
 
             _disposed = false;
         }
@@ -35,8 +34,6 @@ namespace TelleR.Logic.UnitOfWork
             if (!_disposed)
             {
                 _disposed = true;
-                Context.Dispose();
-
                 Context = null;
                 _container = null;
             }
