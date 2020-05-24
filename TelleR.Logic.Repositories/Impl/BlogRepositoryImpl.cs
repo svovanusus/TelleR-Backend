@@ -40,6 +40,43 @@ namespace TelleR.Logic.Repositories.Impl
             return blogs;
         }
 
+        public async Task<IEnumerable<Blog>> GetAllWithPostsByAuthor(Int64 userId)
+        {
+            var blogs = await DbSet.Include(x => x.Owner).Include(x => x.Authors).Include(x => x.Posts).Where(x => x.Owner.Id == userId || x.Authors.Any(y => y.AuthorId == userId)).ToArrayAsync();
+            return blogs;
+        }
+
+        public async Task<IEnumerable<Int64>> GetAuthors (Int64 blogId)
+        {
+            var blog = await DbSet.Include(x => x.Authors).FirstOrDefaultAsync(x => x.Id == blogId);
+            return blog.Authors.Select(x => x.AuthorId).ToArray();
+        }
+
+        public async Task AddAuthorToBlog(Int64 blogId, Int64 authorId)
+        {
+            var blog = await DbSet.Include(x => x.Authors).FirstOrDefaultAsync(x => x.Id ==  blogId);
+            if (blog == null) return;
+
+            if (blog.Authors.Any(x => x.AuthorId == authorId)) return;
+
+            blog.Authors.Add(new BlogAuthor
+            {
+                BlogId = blog.Id,
+                AuthorId = authorId
+            });
+        }
+
+        public async Task RemoveAuthorFromBlog(Int64 blogId, Int64 authorId)
+        {
+            var blog = await DbSet.Include(x => x.Authors).FirstOrDefaultAsync(x => x.Id == blogId);
+            if (blog == null) return;
+
+            var blogAuthor = blog.Authors.FirstOrDefault(x => x.AuthorId == authorId);
+            if (blogAuthor == null) return;
+
+            blog.Authors.Remove(blogAuthor);
+        }
+
         public async Task<Blog> SaveOrUpdate(Blog blog)
         {
             var entity = await DbSet.Include(x => x.Owner).FirstOrDefaultAsync(x => x.Id == blog.Id);

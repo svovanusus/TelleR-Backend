@@ -19,6 +19,48 @@ namespace TelleR.Migrations.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("TelleR.Data.Entities.AuthorInvite", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("BlogId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsApprove")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSenderNotified")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("ReceiverId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ReceiverRespondDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("SenderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("SenderViewedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("AuthorInvites");
+                });
+
             modelBuilder.Entity("TelleR.Data.Entities.Blog", b =>
                 {
                     b.Property<long>("Id")
@@ -63,6 +105,21 @@ namespace TelleR.Migrations.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("TelleR.Data.Entities.BlogAuthor", b =>
+                {
+                    b.Property<long>("BlogId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("AuthorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("BlogId", "AuthorId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("BlogAuthor");
                 });
 
             modelBuilder.Entity("TelleR.Data.Entities.Comment", b =>
@@ -123,7 +180,7 @@ namespace TelleR.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PublishDate")
+                    b.Property<DateTime?>("PublishDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -169,7 +226,7 @@ namespace TelleR.Migrations.Migrations
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastActive")
+                    b.Property<DateTime?>("LastActive")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
@@ -204,11 +261,47 @@ namespace TelleR.Migrations.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("TelleR.Data.Entities.AuthorInvite", b =>
+                {
+                    b.HasOne("TelleR.Data.Entities.Blog", "Blog")
+                        .WithMany("AuthorInvites")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TelleR.Data.Entities.User", "Receiver")
+                        .WithMany("ReceivedInvetes")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TelleR.Data.Entities.User", "Sender")
+                        .WithMany("SendedInvites")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TelleR.Data.Entities.Blog", b =>
                 {
                     b.HasOne("TelleR.Data.Entities.User", "Owner")
                         .WithMany("Blogs")
                         .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("TelleR.Data.Entities.BlogAuthor", b =>
+                {
+                    b.HasOne("TelleR.Data.Entities.User", "Author")
+                        .WithMany("AddedBlogs")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TelleR.Data.Entities.Blog", "Blog")
+                        .WithMany("Authors")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TelleR.Data.Entities.Comment", b =>

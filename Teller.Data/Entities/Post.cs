@@ -17,7 +17,7 @@ namespace TelleR.Data.Entities
 
         public DateTime CreateDate { get; set; }
 
-        public DateTime PublishDate { get; set; }
+        public DateTime? PublishDate { get; set; }
 
         public DateTime UpdateDate { get; set; }
 

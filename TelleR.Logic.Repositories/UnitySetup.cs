@@ -12,6 +12,7 @@ namespace TelleR.Logic.Repositories
             container.RegisterType(typeof(IUserRepository), typeof(UserRepositoryImpl), new PerResolveLifetimeManager());
             container.RegisterType(typeof(IBlogRepository), typeof(BlogRepositoryImpl), new PerResolveLifetimeManager());
             container.RegisterType(typeof(IPostRepository), typeof(PostRepositoryImpl), new PerResolveLifetimeManager());
+            container.RegisterType(typeof(IAuthorInviteRepository), typeof(AuthorInviteRepositoryImpl), new PerResolveLifetimeManager());
         }
     }
 }

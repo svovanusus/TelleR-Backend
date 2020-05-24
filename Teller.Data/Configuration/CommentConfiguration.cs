@@ -13,6 +13,7 @@ namespace TelleR.Data.Configuration
             entity.HasOne(x => x.Post).WithMany(x => x.Comments);
 
             entity.Property(x => x.Text).HasMaxLength(1000).IsRequired();
+            entity.Property(x => x.CreateDate).IsRequired();
         }
     }
 }

@@ -22,6 +22,10 @@ namespace TelleR.Data.Entities
 
         public virtual IEnumerable<Post> Posts { get; set; }
 
+        public virtual IEnumerable<AuthorInvite> AuthorInvites { get; set; }
+
+        public virtual List<BlogAuthor> Authors { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime UpdateDate { get; set; }

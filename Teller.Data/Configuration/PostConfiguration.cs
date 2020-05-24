@@ -16,6 +16,9 @@ namespace TelleR.Data.Configuration
             entity.Property(x => x.Description).HasMaxLength(1000).IsRequired();
             entity.Property(x => x.PostContent).IsRequired();
             entity.Property(x => x.IsPublished).IsRequired();
+            entity.Property(x => x.CreateDate).IsRequired();
+            entity.Property(x => x.UpdateDate).IsRequired();
+            entity.Property(x => x.PublishDate).IsRequired(false);
         }
     }
 }

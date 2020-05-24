@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200314163830_test.cs" />
     <Compile Remove="Migrations\20200314163830_test.Designer.cs" />
+    <Compile Remove="Migrations\20200523172648_AddAuthorInvitesSystem.cs" />
+    <Compile Remove="Migrations\20200523172648_AddAuthorInvitesSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200523172818_AddAuthorInvitesSystem.cs" />
+    <Compile Remove="Migrations\20200523172818_AddAuthorInvitesSystem.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

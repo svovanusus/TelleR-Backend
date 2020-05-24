@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TelleR.Data.Dto.Request;
+using TelleR.Data.Dto.Response;
 using TelleR.Data.Entities;
 using TelleR.Data.Enums;
 using TelleR.Logic.Repositories;
@@ -23,6 +24,50 @@ namespace TelleR.Logic.Services.Impl
         #endregion
 
         #region public methods
+
+        public async Task<UserInfoResponseDto> GetUserInfo(Int64 userId)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
+            {
+                var userRepo = uow.GetRepository<IUserRepository>();
+                var user = await userRepo.GetById(userId);
+                if (user == null) return null;
+
+                user.LastActive = DateTime.Now;
+                await userRepo.SaveOrUpdate(user);
+                uow.Commit();
+
+                return new UserInfoResponseDto
+                {
+                    UserId = user.Id,
+                    Role = user.Role,
+                    FullName = $"{user.FirstName} {user.LastName}"
+                };
+            }
+        }
+
+        public async Task<UserInfoForEditResponseDto> GetUserInfoForEdit(Int64 userId)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
+            {
+                var userRepo = uow.GetRepository<IUserRepository>();
+                var user = await userRepo.GetById(userId);
+                if (user == null) return null;
+
+                user.LastActive = DateTime.Now;
+                await userRepo.SaveOrUpdate(user);
+                uow.Commit();
+
+                return new UserInfoForEditResponseDto
+                {
+                    UserId = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
+            }
+        }
 
         public async Task<AuthModel> AuthValidate(AuthDto model)
         {
@@ -64,6 +109,61 @@ namespace TelleR.Logic.Services.Impl
                 uow.Commit();
 
                 return savedUser != null;
+            }
+        }
+
+        public async Task<Boolean> Update(Int64 userId, String username, String email, String firstName, String lastName)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
+            {
+                var userRepo = uow.GetRepository<IUserRepository>();
+
+                var user = await userRepo.GetById(userId);
+                if (user == null) return false;
+
+                user.Username = username;
+                user.Email = email;
+                user.FirstName = firstName;
+                user.LastName = lastName;
+                user.LastActive = DateTime.Now;
+
+                var savedUser = await userRepo.SaveOrUpdate(user);
+
+                uow.Commit();
+
+                return savedUser != null;
+            }
+        }
+
+        public async Task<Boolean> ChangePassword(Int64 userId, String newPassword)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
+            {
+                var userRepo = uow.GetRepository<IUserRepository>();
+
+                var user = await userRepo.GetById(userId);
+                if (user == null) return false;
+
+                user.Password = EncryptPassword(newPassword);
+
+                var savedUser = await userRepo.SaveOrUpdate(user);
+
+                uow.Commit();
+
+                return savedUser != null;
+            }
+        }
+
+        public async Task<Boolean> ValidatePasswordForUser(Int64 userId, String password)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
+            {
+                var userRepo = uow.GetRepository<IUserRepository>();
+
+                var user = await userRepo.GetById(userId);
+                if (user == null) return false;
+
+                return CheckPassword(password, user.Password);
             }
         }
 

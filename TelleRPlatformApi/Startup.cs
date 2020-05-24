@@ -60,6 +60,7 @@ namespace TelleRPlatformApi
             services.AddScoped<IBlogService, BlogServiceImpl>();
             services.AddScoped<IPostService, PostServiceImpl>();
             services.AddScoped<IUserService, UserServiceImpl>();
+            services.AddScoped<IAuthorInviteService, AuthorInviteServiceImpl>();
 
             services.AddCors();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TelleR.Data.Contexts;
@@ -17,9 +18,14 @@ namespace TelleR.Logic.Repositories.Impl
             return DbSet.AsQueryable();
         }
 
-        public async Task<User> GetById(long userId)
+        public async Task<User> GetById(Int64 userId)
         {
             return await DbSet.FirstOrDefaultAsync(x => x.Id == userId);
+        }
+
+        public async Task<IEnumerable<User>> GetAllByIds(IEnumerable<Int64> ids)
+        {
+            return await DbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
         }
 
         public async Task<User> GetByUsername(String username)

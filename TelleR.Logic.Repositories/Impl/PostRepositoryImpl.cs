@@ -18,6 +18,11 @@ namespace TelleR.Logic.Repositories.Impl
 
         #region public methods
 
+        public async Task<Post> Get (Int64 postId)
+        {
+            return await DbSet.FirstOrDefaultAsync(x => x.Id == postId);
+        }
+
         public IQueryable<Post> GetAllForBlogQueryable(long blogId)
         {
             return DbSet.Where(x => x.Blog.Id == blogId);
@@ -49,6 +54,11 @@ namespace TelleR.Logic.Repositories.Impl
 
                 return entity;
             }
+        }
+
+        public async Task<Blog> GetPostBlog(Int64 postId)
+        {
+            return (await DbSet.Include(x => x.Blog).FirstOrDefaultAsync(x => x.Id == postId))?.Blog;
         }
 
         #endregion

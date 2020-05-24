@@ -10,6 +10,8 @@ namespace TelleR.Data.Configuration
             entity.HasKey(x => x.Id);
 
             entity.HasMany(x => x.Posts).WithOne(x => x.Blog);
+            entity.HasMany(x => x.AuthorInvites).WithOne(x => x.Blog);
+            entity.HasMany(x => x.Authors).WithOne(x => x.Blog);
 
             entity.HasIndex(blog => blog.Name).IsUnique(true);
 
@@ -18,6 +20,8 @@ namespace TelleR.Data.Configuration
             entity.Property(x => x.Description).HasMaxLength(5000).IsRequired(false);
             entity.Property(x => x.Type).IsRequired();
             entity.Property(x => x.IsPublic).IsRequired();
+            entity.Property(x => x.CreateDate).IsRequired();
+            entity.Property(x => x.UpdateDate).IsRequired();
         }
     }
 }

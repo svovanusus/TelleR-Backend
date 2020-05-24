@@ -26,14 +26,20 @@ namespace TelleR.Data.Entities
 
         public virtual IEnumerable<Blog> Blogs { get; set; }
 
+        public virtual List<BlogAuthor> AddedBlogs { get; set; }
+
         public virtual IEnumerable<Post> Posts { get; set; }
 
         public virtual IEnumerable<Comment> Comments { get; set; }
+
+        public virtual IEnumerable<AuthorInvite> SendedInvites { get; set; }
+
+        public virtual IEnumerable<AuthorInvite> ReceivedInvetes { get; set; }
 
         public DateTime CreateDate { get; set; }
 
         public DateTime UpdateDate { get; set; }
 
-        public DateTime LastActive { get; set; }
+        public DateTime? LastActive { get; set; }
     }
 }
