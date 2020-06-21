@@ -15,5 +15,9 @@ namespace TelleR.Data.Dto.Response
         public UserResponseDto Author { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public DateTime? PublishDate { get; set; }
+
+        public DateTime? UpdateDate { get; set; }
     }
 }

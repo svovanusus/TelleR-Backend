@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,12 +29,28 @@ namespace TelleRPlatformApi.Controllers
 
         #region public methods
 
+        // GET /posts/byId
+        [HttpGet("byId")]
+        public async Task<PostResponseDto> GetById(Int64 postId)
+        {
+            var result = await _postService.GetPostById(postId);
+
+            if (result != null) Response.StatusCode = StatusCodes.Status200OK;
+            else Response.StatusCode = StatusCodes.Status404NotFound;
+
+            return result;
+        }
+
         // GET /posts/getPublishedForBlog
         [HttpGet("getPublishedForBlog")]
-        [Authorize]
         public async Task<IEnumerable<PostResponseDto>> GetPublishedPostsForBlog(Int64 blogId)
         {
-            return await _postService.GetPublishedPostsByBlog(blogId);
+            var result = await _postService.GetPublishedPostsByBlog(blogId);
+
+            if (result != null) Response.StatusCode = StatusCodes.Status200OK;
+            else Response.StatusCode = StatusCodes.Status404NotFound;
+
+            return result;
         }
 
         // GET /posts/getAllForBlog
@@ -84,9 +101,12 @@ namespace TelleRPlatformApi.Controllers
             {
                 try
                 {
-                    var description = model.Content.Length > 997
-                            ? model.Content.Substring(0, 997) + "..."
-                            : model.Content;
+                    var description = Regex.Replace(model.Content, @"<[^>]*>", " ");
+                    description = Regex.Replace(description, @"\s+", " ").Trim();
+
+                    description = description.Length > 247
+                            ? description.Substring(0, 247) + "..."
+                            : description;
 
                     Response.StatusCode = StatusCodes.Status201Created;
                     return await _postService.CreateNew(model.Title, model.Content, description, model.IsPublished, userId, model.BlogId);
@@ -121,9 +141,12 @@ namespace TelleRPlatformApi.Controllers
             Int64 userId;
             if (Int64.TryParse(User.FindFirst(ClaimTypes.NameIdentifier).Value, out userId) && await _postService.IsPostAvailableForUser(model.PostId.Value, userId))
             {
-                var description = model.Content.Length > 997
-                        ? model.Content.Substring(0, 997) + "..."
-                        : model.Content;
+                var description = Regex.Replace(model.Content, @"<[^>]*>", " ");
+                description = Regex.Replace(description, @"\s+", " ").Trim();
+
+                description = description.Length > 247
+                        ? description.Substring(0, 247) + "..."
+                        : description;
 
                 var post = await _postService.Update(model.PostId.Value, model.Title, model.Content, description);
 

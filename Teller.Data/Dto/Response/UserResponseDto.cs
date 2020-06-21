@@ -6,5 +6,6 @@ namespace TelleR.Data.Dto.Response
     {
         public Int64 Id { get; set; }
         public String FullName { get; set; }
+        public String Avatar { get; set; }
     }
 }

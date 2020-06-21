@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TelleR.Logic.Repositories.Impl.AuthorInviteRepositoryImpl" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAJAAQAABBAAAAAAAAAAAAgAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Impl\AuthorInviteRepositoryImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.BlogRepositoryImpl" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAABAAIAAAAAAAAAAAAAABAAAAAEiAAAAAAIIg=</HashCode>
+      <FileName>Impl\BlogRepositoryImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.PostRepositoryImpl" Collapsed="true">
+    <Position X="6.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAABAAAAABAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Impl\PostRepositoryImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.UserRepositoryImpl" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAABAAAAAAAACAACIAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Impl\UserRepositoryImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.RepositoryBase&lt;TEntity, TContext&gt;">
+    <Position X="5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RepositoryBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UnitOfWork" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleR.Logic.UnitOfWork.UnitOfWorkBase&lt;TContext&gt;">
+    <Position X="9.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TelleR.Logic.Repositories.IAuthorInviteRepository">
+    <Position X="0.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAJAAQAABBAAAAAAAAAAAAgAAAAAAAAAIAAAA=</HashCode>
+      <FileName>IAuthorInviteRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Repositories.IBlogRepository">
+    <Position X="3.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAABAAIAAAAAAAAAAAAAABAAAAAEiAAAAAAIIg=</HashCode>
+      <FileName>IBlogRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Repositories.IPostRepository">
+    <Position X="6.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAABAAAAABAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IPostRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Repositories.IUserRepository">
+    <Position X="9.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAABAAAAAAAACAACIAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

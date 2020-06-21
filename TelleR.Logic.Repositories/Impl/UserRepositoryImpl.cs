@@ -63,6 +63,7 @@ namespace TelleR.Logic.Repositories.Impl
                 entity.FirstName = model.FirstName;
                 entity.LastName = model.LastName;
                 entity.Role = model.Role;
+                entity.Avatar = model.Avatar;
                 entity.LastActive = DateTime.Now;
                 entity.UpdateDate = DateTime.Now;
 

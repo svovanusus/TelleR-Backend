@@ -16,10 +16,9 @@ namespace TelleR.Logic.Services.Impl
     {
         #region constructors
 
-        public BlogServiceImpl(ITellerDatabaseUnitOfWorkFactory tellerDatabaseUnitOfWorkFactory, IAwsService awsService)
+        public BlogServiceImpl(ITellerDatabaseUnitOfWorkFactory tellerDatabaseUnitOfWorkFactory)
         {
             _tellerDatabaseUnitOfWorkFactory = tellerDatabaseUnitOfWorkFactory;
-            _awsService = awsService;
         }
 
         #endregion
@@ -37,11 +36,13 @@ namespace TelleR.Logic.Services.Impl
                 return new BlogResponseDto
                 {
                     Id = blog.Id,
+                    Name = blog.Name,
                     Title = blog.Title,
                     Author = new UserResponseDto
                     {
                         Id = blog.Owner.Id,
-                        FullName = $"{ blog.Owner.FirstName } { blog.Owner.LastName }"
+                        FullName = $"{ blog.Owner.FirstName } { blog.Owner.LastName }",
+                        Avatar = blog.Owner.Avatar
                     }
                 };
             }
@@ -58,11 +59,13 @@ namespace TelleR.Logic.Services.Impl
                 return new BlogResponseDto
                 {
                     Id = blog.Id,
+                    Name = blog.Name,
                     Title = blog.Title,
                     Author = new UserResponseDto
                     {
                         Id = blog.Owner.Id,
-                        FullName = $"{ blog.Owner.FirstName } { blog.Owner.LastName }"
+                        FullName = $"{ blog.Owner.FirstName } { blog.Owner.LastName }",
+                        Avatar = blog.Owner.Avatar
                     }
                 };
             }
@@ -106,11 +109,13 @@ namespace TelleR.Logic.Services.Impl
                 return blogs.Select(x => new BlogResponseDto
                 {
                     Id = x.Id,
+                    Name = x.Name,
                     Title = x.Title,
                     Author = new UserResponseDto
                     {
                         Id = x.Owner.Id,
-                        FullName = $"{ x.Owner.FirstName } { x.Owner.LastName }"
+                        FullName = $"{ x.Owner.FirstName } { x.Owner.LastName }",
+                        Avatar = x.Owner.Avatar
                     },
                     PostsCount = x.Posts.Count()
                 });
@@ -140,11 +145,13 @@ namespace TelleR.Logic.Services.Impl
                 return new BlogResponseDto
                 {
                     Id = savedBlog.Id,
+                    Name = savedBlog.Name,
                     Title = savedBlog.Title,
                     Author = new UserResponseDto
                     {
                         Id = savedBlog.Owner.Id,
-                        FullName = $"{ savedBlog.Owner.FirstName } { savedBlog.Owner.LastName }"
+                        FullName = $"{ savedBlog.Owner.FirstName } { savedBlog.Owner.LastName }",
+                        Avatar = savedBlog.Owner.Avatar
                     }
                 };
             }
@@ -171,11 +178,13 @@ namespace TelleR.Logic.Services.Impl
                 return new BlogResponseDto
                 {
                     Id = savedBlog.Id,
+                    Name = savedBlog.Name,
                     Title = savedBlog.Title,
                     Author = new UserResponseDto
                     {
                         Id = savedBlog.Owner.Id,
-                        FullName = $"{ savedBlog.Owner.FirstName } { savedBlog.Owner.LastName }"
+                        FullName = $"{ savedBlog.Owner.FirstName } { savedBlog.Owner.LastName }",
+                        Avatar = savedBlog.Owner.Avatar
                     }
                 };
             }
@@ -249,7 +258,8 @@ namespace TelleR.Logic.Services.Impl
                 return authors.Select(x => new UserResponseDto
                 {
                     Id = x.Id,
-                    FullName = $"{ x.FirstName } { x.LastName }"
+                    FullName = $"{ x.FirstName } { x.LastName }",
+                    Avatar = x.Avatar
                 });
             }
         }
@@ -278,7 +288,6 @@ namespace TelleR.Logic.Services.Impl
         #region private fields
 
         private readonly ITellerDatabaseUnitOfWorkFactory _tellerDatabaseUnitOfWorkFactory;
-        private readonly IAwsService _awsService;
 
         #endregion
     }

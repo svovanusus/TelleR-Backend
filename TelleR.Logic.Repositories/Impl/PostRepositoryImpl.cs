@@ -20,7 +20,7 @@ namespace TelleR.Logic.Repositories.Impl
 
         public async Task<Post> Get (Int64 postId)
         {
-            return await DbSet.FirstOrDefaultAsync(x => x.Id == postId);
+            return await DbSet.Include(x => x.Author).FirstOrDefaultAsync(x => x.Id == postId);
         }
 
         public IQueryable<Post> GetAllForBlogQueryable(long blogId)

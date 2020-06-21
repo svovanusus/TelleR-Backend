@@ -22,9 +22,7 @@
     <ProjectReference Include="..\TelleR.Configuration\TelleR.Configuration.csproj" />
     <ProjectReference Include="..\TelleR.Data.Contexts\TelleR.Data.Contexts.csproj" />
     <ProjectReference Include="..\Teller.Data\TelleR.Data.csproj" />
-    <ProjectReference Include="..\TelleR.Logic.Repositories\TelleR.Logic.Repositories.csproj" />
     <ProjectReference Include="..\TelleR.Logic.Services\TelleR.Logic.Services.csproj" />
-    <ProjectReference Include="..\TelleR.Logic.Tools\TelleR.Logic.Tools.csproj" />
     <ProjectReference Include="..\TelleR.Logic\TelleR.Logic.csproj" />
     <ProjectReference Include="..\TelleR.Migrations\TelleR.Migrations.csproj" />
     <ProjectReference Include="..\TelleR.Unity\TelleR.Unity.csproj" />

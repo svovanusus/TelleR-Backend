@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TelleR.Data.Dto.Response;
 using TelleR.Data.Entities;
-using TelleR.Data.Enums;
 using TelleR.Data.Exceptions;
 using TelleR.Logic.Repositories;
 using TelleR.Logic.Tools;
@@ -31,7 +30,7 @@ namespace TelleR.Logic.Services.Impl
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
             {
                 var post = await uow.GetRepository<IPostRepository>().Get(postId);
-                if (post == null) return null;
+                if (post == null || !post.IsPublished) return null;
 
                 return new PostResponseDto
                 {
@@ -40,9 +39,12 @@ namespace TelleR.Logic.Services.Impl
                     Author = new UserResponseDto
                     {
                         Id = post.Author.Id,
-                        FullName = $"{post.Author.FirstName} {post.Author.LastName}"
+                        FullName = $"{post.Author.FirstName} {post.Author.LastName}",
+                        Avatar = post.Author.Avatar
                     },
                     CreateDate = post.CreateDate,
+                    PublishDate = post.PublishDate,
+                    UpdateDate = post.UpdateDate,
                     Content = post.PostContent,
                     Description = post.Description
                 };
@@ -81,9 +83,12 @@ namespace TelleR.Logic.Services.Impl
                     Author = new UserResponseDto
                     {
                         Id = post.Author.Id,
-                        FullName = $"{post.Author.FirstName} {post.Author.LastName}"
+                        FullName = $"{post.Author.FirstName} {post.Author.LastName}",
+                        Avatar = post.Author.Avatar
                     },
                     CreateDate = post.CreateDate,
+                    PublishDate = post.PublishDate,
+                    UpdateDate = post.UpdateDate,
                     Content = post.PostContent,
                     Description = post.Description
                 };
@@ -100,12 +105,15 @@ namespace TelleR.Logic.Services.Impl
                     Author = new UserResponseDto
                     {
                         Id = x.Author.Id,
-                        FullName = $"{x.Author.FirstName} {x.Author.LastName}"
+                        FullName = $"{x.Author.FirstName} {x.Author.LastName}",
+                        Avatar = x.Author.Avatar
                     },
                     Title = x.Title,
                     Description = x.Description,
                     Content = x.PostContent,
                     CreateDate = x.CreateDate,
+                    UpdateDate = x.UpdateDate,
+                    PublishDate = x.PublishDate,
                 }).ToArrayAsync();
                 return posts;
             }
@@ -121,12 +129,15 @@ namespace TelleR.Logic.Services.Impl
                     Author = new UserResponseDto
                     {
                         Id = x.Author.Id,
-                        FullName = $"{x.Author.FirstName} {x.Author.LastName}"
+                        FullName = $"{x.Author.FirstName} {x.Author.LastName}",
+                        Avatar = x.Author.Avatar
                     },
                     Title = x.Title,
                     Description = x.Description,
                     Content = x.PostContent,
                     CreateDate = x.CreateDate,
+                    UpdateDate = x.UpdateDate,
+                    PublishDate = x.PublishDate,
                 }).ToArrayAsync();
                 return posts;
             }
@@ -177,10 +188,13 @@ namespace TelleR.Logic.Services.Impl
                     Description = savedPost.Description,
                     Content = savedPost.PostContent,
                     CreateDate = savedPost.CreateDate,
+                    PublishDate = savedPost.PublishDate,
+                    UpdateDate = savedPost.UpdateDate,
                     Author = new UserResponseDto
                     {
                         Id = savedPost.Author.Id,
-                        FullName = $"{ savedPost.Author.FirstName } { savedPost.Author.LastName }"
+                        FullName = $"{ savedPost.Author.FirstName } { savedPost.Author.LastName }",
+                        Avatar = savedPost.Author.Avatar
                     }
                 };
             }
@@ -211,10 +225,13 @@ namespace TelleR.Logic.Services.Impl
                     Description = savedPost.Description,
                     Content = savedPost.PostContent,
                     CreateDate = savedPost.CreateDate,
+                    PublishDate = savedPost.PublishDate,
+                    UpdateDate = savedPost.UpdateDate,
                     Author = new UserResponseDto
                     {
                         Id = savedPost.Author.Id,
-                        FullName = $"{ savedPost.Author.FirstName } { savedPost.Author.LastName }"
+                        FullName = $"{ savedPost.Author.FirstName } { savedPost.Author.LastName }",
+                        Avatar = savedPost.Author.Avatar
                     }
                 };
             }

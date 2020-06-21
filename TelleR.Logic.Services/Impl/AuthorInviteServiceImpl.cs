@@ -99,7 +99,8 @@ namespace TelleR.Logic.Services.Impl
                     Sender = new UserResponseDto
                     {
                         Id = x.Sender.Id,
-                        FullName = $"{ x.Sender.FirstName } { x.Sender.LastName }"
+                        FullName = $"{ x.Sender.FirstName } { x.Sender.LastName }",
+                        Avatar = x.Sender.Avatar
                     },
                     BlogName = x.Blog.Name
                 });
@@ -116,7 +117,8 @@ namespace TelleR.Logic.Services.Impl
                     Reciever = new UserResponseDto
                     {
                         Id = x.Receiver.Id,
-                        FullName = $"{ x.Receiver.FirstName } { x.Receiver.LastName }"
+                        FullName = $"{ x.Receiver.FirstName } { x.Receiver.LastName }",
+                        Avatar = x.Receiver.Avatar
                     },
                     BlogName = x.Blog.Name,
                     IsApproved = x.IsApprove ?? false

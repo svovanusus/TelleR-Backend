@@ -24,13 +24,13 @@ namespace TelleR.Data.Entities
 
         public UserRole Role { get; set; }
 
+        public String Avatar { get; set; }
+
         public virtual IEnumerable<Blog> Blogs { get; set; }
 
         public virtual List<BlogAuthor> AddedBlogs { get; set; }
 
         public virtual IEnumerable<Post> Posts { get; set; }
-
-        public virtual IEnumerable<Comment> Comments { get; set; }
 
         public virtual IEnumerable<AuthorInvite> SendedInvites { get; set; }
 

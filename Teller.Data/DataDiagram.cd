@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TelleR.Data.Entities.AuthorInvite">
+    <Position X="4.25" Y="5.5" Width="2" />
+    <AssociationLine Name="Blog" Type="TelleR.Data.Entities.Blog" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="6.343" />
+        <Point X="2.875" Y="6.343" />
+        <Point X="2.875" Y="5.45" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Sender" Type="TelleR.Data.Entities.User" FixedToPoint="true">
+      <Path>
+        <Point X="5.125" Y="5.5" />
+        <Point X="5.125" Y="3.719" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Receiver" Type="TelleR.Data.Entities.User" FixedFromPoint="true">
+      <Path>
+        <Point X="5.75" Y="5.5" />
+        <Point X="5.75" Y="3.719" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.838" Y="0.039" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAKAAAAAAACAAAAAAAAAAAQAAAEAAAAAAABAAAIACA=</HashCode>
+      <FileName>Entities\AuthorInvite.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Blog" />
+      <Property Name="Sender" />
+      <Property Name="Receiver" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleR.Data.Entities.Blog">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <AssociationLine Name="Owner" Type="TelleR.Data.Entities.User" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="3.188" />
+        <Point X="4.75" Y="3.188" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Posts" Type="TelleR.Data.Entities.Post" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="4.242" />
+        <Point X="1.125" Y="4.242" />
+        <Point X="1.125" Y="2.95" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.619" Y="0.018" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Authors" Type="TelleR.Data.Entities.BlogAuthor" FixedToPoint="true">
+      <Path>
+        <Point X="3" Y="3" />
+        <Point X="3" Y="2.546" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.775" Y="0.039" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="AuthorInvites" Type="TelleR.Data.Entities.AuthorInvite" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.938" Y="5.45" />
+        <Point X="2.938" Y="6.25" />
+        <Point X="4.25" Y="6.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAACAAQAgAEAABAAAAAQAACBAAAAAAQABAQAAAAA=</HashCode>
+      <FileName>Entities\Blog.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Owner" />
+      <Property Name="Posts" />
+      <Property Name="Authors" />
+      <Property Name="AuthorInvites" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleR.Data.Entities.BlogAuthor">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <AssociationLine Name="Author" Type="TelleR.Data.Entities.User" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="1.75" />
+        <Point X="4.75" Y="1.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.006" Y="-0.252" Height="0.182" Width="0.675" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Blog" Type="TelleR.Data.Entities.Blog" FixedFromPoint="true">
+      <Path>
+        <Point X="2.938" Y="2.546" />
+        <Point X="2.938" Y="3" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAABAAAAgAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Entities\BlogAuthor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Author" />
+      <Property Name="Blog" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleR.Data.Entities.Post">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Blog" Type="TelleR.Data.Entities.Blog" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="2.95" />
+        <Point X="1.062" Y="4.315" />
+        <Point X="2.25" Y="4.315" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.04" Y="-0.257" Height="0.182" Width="0.591" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Author" Type="TelleR.Data.Entities.User" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="0.875" />
+        <Point X="4.75" Y="0.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAAQAgAEAAiEAAAAAAAAAAAAAAAAABABAAAAA=</HashCode>
+      <FileName>Entities\Post.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Blog" />
+      <Property Name="Author" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleR.Data.Entities.User">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Blogs" Type="TelleR.Data.Entities.Blog" FixedFromPoint="true">
+      <Path>
+        <Point X="4.75" Y="3.25" />
+        <Point X="3.75" Y="3.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.058" Y="-0.232" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="AddedBlogs" Type="TelleR.Data.Entities.BlogAuthor" FixedFromPoint="true">
+      <Path>
+        <Point X="4.75" Y="1.672" />
+        <Point X="3.75" Y="1.672" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Posts" Type="TelleR.Data.Entities.Post" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="0.937" />
+        <Point X="2" Y="0.937" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.048" Y="-0.232" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ReceivedInvetes" Type="TelleR.Data.Entities.AuthorInvite" FixedToPoint="true">
+      <Path>
+        <Point X="5.688" Y="3.719" />
+        <Point X="5.688" Y="5.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.327" Y="0.039" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="SendedInvites" Type="TelleR.Data.Entities.AuthorInvite" FixedToPoint="true">
+      <Path>
+        <Point X="5.188" Y="3.719" />
+        <Point X="5.188" Y="5.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAACAEAAASAAAAAABQQAIAAAAEEAAiACAAABAAAAAAg=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Blogs" />
+      <Property Name="AddedBlogs" />
+      <Property Name="Posts" />
+      <Property Name="ReceivedInvetes" />
+      <Property Name="SendedInvites" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

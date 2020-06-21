@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 using TelleR.Data.Dto;
 using TelleR.Data.Dto.Request;
 using TelleR.Data.Dto.Response;
-using TelleR.Logic.Repositories;
 using TelleR.Logic.Services;
 using TelleR.Logic.Services.Models;
-using TelleR.Logic.Tools;
 
 namespace TelleRPlatformApi.Controllers
 {
@@ -23,9 +21,8 @@ namespace TelleRPlatformApi.Controllers
     {
         #region constructors
 
-        public UsersController(ITellerDatabaseUnitOfWorkFactory tellerDatabaseUnitOfWorkFactory, IAwsService awsService, IUserService userService)
+        public UsersController(IAwsService awsService, IUserService userService)
         {
-            _tellerDatabaseUnitOfWorkFactory = tellerDatabaseUnitOfWorkFactory;
             _awsService = awsService;
             _userService = userService;
         }
@@ -38,35 +35,20 @@ namespace TelleRPlatformApi.Controllers
         [Authorize(Roles = "SuperUser")]
         public async Task<IEnumerable<UserResponseDto>> GetAll()
         {
-            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
-            {
-                return uow.GetRepository<IUserRepository>().GetAllQueryable().Select(x => new UserResponseDto
-                {
-                    Id = x.Id,
-                    FullName = $"{ x.FirstName } { x.LastName }"
-                });
-            }
+            return await _userService.GetAll();
         }
 
         [HttpGet("user")]
         [Authorize]
         public async Task<UserResponseDto> Get(Int64 userId)
         {
-            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
+            var user = await _userService.Get(userId);
+            if (user == null)
             {
-                var user = await uow.GetRepository<IUserRepository>().GetById(userId);
-                if (user == null)
-                {
-                    Response.StatusCode = StatusCodes.Status404NotFound;
-                    return null;
-                }
-
-                return new UserResponseDto
-                {
-                    Id = user.Id,
-                    FullName = $"{ user.FirstName } { user.LastName }"
-                };
+                Response.StatusCode = StatusCodes.Status404NotFound;
+                return null;
             }
+            return user;
         }
 
         [HttpGet("info")]
@@ -120,33 +102,21 @@ namespace TelleRPlatformApi.Controllers
         [Authorize]
         public async Task<ProfileResponseDto> GetProfile()
         {
-            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
+            Int64 userId;
+            if (!Int64.TryParse(User.FindFirst(ClaimTypes.NameIdentifier).Value, out userId))
             {
-                String identityfierString = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                Int64 UserId;
-
-                if (identityfierString == null || !Int64.TryParse(identityfierString, out UserId))
-                {
-                    Response.StatusCode = StatusCodes.Status400BadRequest;
-                    return null;
-                }
-
-                var user = await uow.GetRepository<IUserRepository>().GetById(UserId);
-                if (user == null)
-                {
-                    Response.StatusCode = StatusCodes.Status403Forbidden;
-                    return null;
-                }
-
-                return new ProfileResponseDto
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName
-                };
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return null;
             }
+
+            var user = await _userService.GetProfile(userId);
+            if (user == null)
+            {
+                Response.StatusCode = StatusCodes.Status403Forbidden;
+                return null;
+            }
+
+            return user;
         }
 
         // PUT /users/updateInfo
@@ -238,22 +208,34 @@ namespace TelleRPlatformApi.Controllers
             return null;
         }
 
-        [HttpPost("uploadFile")]
+        [HttpPost("uploadAvatar")]
+        [Authorize]
         public async Task<FileUploadResposeDto> UploadFile()
         {
-            foreach(var file in Request.Form.Files)
+            Int64 userId;
+            if (Int64.TryParse(User.FindFirst(ClaimTypes.NameIdentifier).Value, out userId))
             {
-                var result = await _awsService.SaveFileToAws(new FileDto
+                foreach (var file in Request.Form.Files)
                 {
-                    ContentType = file.ContentType,
-                    FileName = file.FileName,
-                    ReadStream = file.OpenReadStream()
-                });
+                    var filePath = await _awsService.SaveFileToAws(new FileDto
+                    {
+                        ContentType = file.ContentType,
+                        FileName = file.FileName,
+                        ReadStream = file.OpenReadStream()
+                    });
 
-                return new FileUploadResposeDto
-                {
-                    FilePath = result
-                };
+                    if (!await _userService.UpdateAvatar(userId, filePath))
+                    {
+                        Response.StatusCode = StatusCodes.Status400BadRequest;
+                        return null;
+                    }
+
+                    Response.StatusCode = StatusCodes.Status200OK;
+                    return new FileUploadResposeDto
+                    {
+                        FilePath = filePath
+                    };
+                }
             }
 
             Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -264,7 +246,6 @@ namespace TelleRPlatformApi.Controllers
 
         #region private fields
 
-        private readonly ITellerDatabaseUnitOfWorkFactory _tellerDatabaseUnitOfWorkFactory;
         private readonly IAwsService _awsService;
         private readonly IUserService _userService;
 

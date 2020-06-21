@@ -24,7 +24,5 @@ namespace TelleR.Data.Entities
         public virtual Blog Blog { get; set; }
 
         public virtual User Author { get; set; }
-
-        public virtual IEnumerable<Comment> Comments { get; set; }
     }
 }

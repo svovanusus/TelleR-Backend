@@ -25,18 +25,20 @@ namespace TelleR.Logic.Services.Impl
 
             var client = new Amazon.S3.AmazonS3Client(keyId, keySecret, config);
 
+            var fileName = $"users-uploads/{Guid.NewGuid().ToString()}-{file.FileName}";
+
             var request = new Amazon.S3.Model.PutObjectRequest
             {
                 BucketName = "teller-uploads",
                 ContentType = file.ContentType,
                 InputStream = file.ReadStream,
-                Key = file.FileName,
+                Key = fileName,
                 StorageClass = Amazon.S3.S3StorageClass.Standard,
                 CannedACL = Amazon.S3.S3CannedACL.PublicRead,
             };
 
             var response = await client.PutObjectAsync(request);
-            if (response.HttpStatusCode == HttpStatusCode.OK) return "https://teller-uploads.s3.amazonaws.com/" + file.FileName;
+            if (response.HttpStatusCode == HttpStatusCode.OK) return "https://teller-uploads.s3.amazonaws.com/" + fileName;
             else return null;
         }
     }

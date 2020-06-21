@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TelleR.Logic.Repositories.RepositoryBase&lt;TEntity, TContext&gt;">
+    <Position X="4.25" Y="10" Width="2.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="UnitOfWork" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.AuthorInviteRepositoryImpl">
+    <Position X="0.5" Y="12.75" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.BlogRepositoryImpl">
+    <Position X="5.5" Y="12.75" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.PostRepositoryImpl">
+    <Position X="3" Y="12.75" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Repositories.Impl.UserRepositoryImpl">
+    <Position X="8" Y="12.75" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Tools.Impl.TellerDatabaseUnitOfWorkFactoryImpl">
+    <Position X="21.75" Y="12.25" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.UnitOfWork.Impl.BasicUnitOfWork&lt;TContext&gt;">
+    <Position X="11.75" Y="12.75" Width="2.5" />
+    <InheritanceLine Type="TelleR.Logic.UnitOfWork.UnitOfWorkBase&lt;TContext&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.5" Y="12.074" />
+        <Point X="13.5" Y="12.412" />
+        <Point X="13.5" Y="12.412" />
+        <Point X="13.5" Y="12.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="TelleR.Logic.UnitOfWork.Impl.ReadonlyUnitOfWork&lt;TContext&gt;">
+    <Position X="14.5" Y="12.75" Width="2.5" />
+    <InheritanceLine Type="TelleR.Logic.UnitOfWork.UnitOfWorkBase&lt;TContext&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.312" Y="12.074" />
+        <Point X="15.312" Y="12.412" />
+        <Point X="15.312" Y="12.412" />
+        <Point X="15.312" Y="12.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="TelleR.Logic.UnitOfWork.Impl.UnitOfWorkFactoryImpl&lt;TContext&gt;">
+    <Position X="21.75" Y="9.75" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.UnitOfWork.UnitOfWorkBase&lt;TContext&gt;">
+    <Position X="13" Y="9.75" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleRPlatformApi.Controllers.AuthController">
+    <Position X="7.5" Y="0.5" Width="2" />
+    <AssociationLine Name="_userService" Type="TelleR.Logic.Services.IUserService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.625" Y="2.117" />
+        <Point X="8.625" Y="3.979" />
+        <Point X="10.062" Y="3.979" />
+        <Point X="10.062" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Controllers\AuthController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_userService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleRPlatformApi.Controllers.AuthorInvitesController">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <AssociationLine Name="_authorInviteService" Type="TelleR.Logic.Services.IAuthorInviteService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.25" Y="2.502" />
+        <Point X="6.25" Y="2.877" />
+        <Point X="6.667" Y="2.877" Type="JumpStart" />
+        <Point X="6.833" Y="2.877" Type="JumpEnd" />
+        <Point X="7.75" Y="2.877" />
+        <Point X="7.75" Y="5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_blogService" Type="TelleR.Logic.Services.IBlogService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="2.502" />
+        <Point X="6" Y="4.625" />
+        <Point X="4.438" Y="4.625" />
+        <Point X="4.438" Y="5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_userService" Type="TelleR.Logic.Services.IUserService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="2.502" />
+        <Point X="6.75" Y="4.625" />
+        <Point X="7.667" Y="4.625" Type="JumpStart" />
+        <Point X="7.833" Y="4.625" Type="JumpEnd" />
+        <Point X="10.062" Y="4.625" />
+        <Point X="10.062" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQABAAAIAAABAAAAAAAAAAAAAAAAAAAAAIEAAAAAAA=</HashCode>
+      <FileName>Controllers\AuthorInvitesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authorInviteService" />
+      <Field Name="_blogService" />
+      <Field Name="_userService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleRPlatformApi.Controllers.BlogsController">
+    <Position X="3" Y="0.5" Width="2" />
+    <AssociationLine Name="_blogService" Type="TelleR.Logic.Services.IBlogService" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.438" Y="3.848" />
+        <Point X="4.438" Y="4.428" />
+        <Point X="4.438" Y="4.428" />
+        <Point X="4.438" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAgABAAAAAAAIAAAAAAAAgAEAAAACow=</HashCode>
+      <FileName>Controllers\BlogsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_blogService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleRPlatformApi.Controllers.FilesController">
+    <Position X="12" Y="0.5" Width="2" />
+    <AssociationLine Name="_awsService" Type="TelleR.Logic.Services.IAwsService" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="12.75" Y="1.925" />
+        <Point X="12.75" Y="2.3" />
+        <Point X="12.75" Y="2.3" />
+        <Point X="12.75" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\FilesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_awsService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleRPlatformApi.Controllers.PostsController">
+    <Position X="0.75" Y="0.5" Width="2" />
+    <AssociationLine Name="_postService" Type="TelleR.Logic.Services.IPostService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.75" Y="3.079" />
+        <Point X="1.75" Y="4.196" />
+        <Point X="1.75" Y="4.196" />
+        <Point X="1.75" Y="5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_blogService" Type="TelleR.Logic.Services.IBlogService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.188" Y="3.079" />
+        <Point X="2.188" Y="4.333" />
+        <Point X="4.438" Y="4.333" />
+        <Point X="4.438" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAAAAAAAFAABAAAAAAAAIAAAAAEAAAAIIA=</HashCode>
+      <FileName>Controllers\PostsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_postService" />
+      <Field Name="_blogService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TelleRPlatformApi.Controllers.UsersController">
+    <Position X="9.75" Y="0.5" Width="2" />
+    <AssociationLine Name="_awsService" Type="TelleR.Logic.Services.IAwsService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.938" Y="3.271" />
+        <Point X="10.938" Y="4.003" />
+        <Point X="12.75" Y="4.003" />
+        <Point X="12.75" Y="5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_userService" Type="TelleR.Logic.Services.IUserService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.5" Y="3.271" />
+        <Point X="10.5" Y="4.013" />
+        <Point X="10.062" Y="4.013" />
+        <Point X="10.062" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAACAAABAABAAABAAAABAAQAAAgAEAAAAAAA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_awsService" />
+      <Field Name="_userService" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="TelleR.Logic.Repositories.IAuthorInviteRepository">
+    <Position X="0.5" Y="16.5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Repositories.IBlogRepository">
+    <Position X="3" Y="16.5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Repositories.IPostRepository">
+    <Position X="8" Y="16.5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Repositories.IUserRepository">
+    <Position X="5.5" Y="16.5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IAuthorInviteService">
+    <Position X="6" Y="5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IAwsService">
+    <Position X="11.5" Y="5" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IBlogService">
+    <Position X="3.25" Y="5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IPostService">
+    <Position X="0.5" Y="5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IUserService">
+    <Position X="8.75" Y="5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.Tools.ITellerDatabaseUnitOfWorkFactory" Collapsed="true">
+    <Position X="18.5" Y="11.5" Width="2.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.UnitOfWork.IUnitOfWork">
+    <Position X="16.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.UnitOfWork.IUnitOfWorkFactory">
+    <Position X="18.5" Y="9.75" Width="2.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TelleR.Logic.Services.Impl.AuthorInviteServiceImpl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="2.5" Width="2.75" />
+    <AssociationLine Name="_tellerDatabaseUnitOfWorkFactory" Type="TelleR.Logic.Tools.ITellerDatabaseUnitOfWorkFactory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.875" Y="2.5" />
+        <Point X="7.875" Y="1.871" />
+        <Point X="8.562" Y="1.871" />
+        <Point X="8.562" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAkAAAIQAAAAAAAAAAAAAAAAEAAAAAAAAAAAEAgAACA=</HashCode>
+      <FileName>Impl\AuthorInviteServiceImpl.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_tellerDatabaseUnitOfWorkFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Services.Impl.AwsServiceImpl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAAA=</HashCode>
+      <FileName>Impl\AwsServiceImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Services.Impl.BlogServiceImpl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="2.5" Width="2.75" />
+    <AssociationLine Name="_tellerDatabaseUnitOfWorkFactory" Type="TelleR.Logic.Tools.ITellerDatabaseUnitOfWorkFactory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.875" Y="2.5" />
+        <Point X="13.875" Y="1.865" />
+        <Point X="8.562" Y="1.865" />
+        <Point X="8.562" Y="1.191" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.069" Y="0.101" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAgAAAAAAQAAgAAAABACAAAAgAAAAABCKg=</HashCode>
+      <FileName>Impl\BlogServiceImpl.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_tellerDatabaseUnitOfWorkFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Services.Impl.PostServiceImpl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="2.5" Width="2.75" />
+    <AssociationLine Name="_blogService" Type="TelleR.Logic.Services.IBlogService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.625" Y="3.062" />
+        <Point X="11.625" Y="3.375" />
+        <Point X="13.938" Y="3.375" />
+        <Point X="13.938" Y="3.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_tellerDatabaseUnitOfWorkFactory" Type="TelleR.Logic.Tools.ITellerDatabaseUnitOfWorkFactory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.938" Y="2.5" />
+        <Point X="10.938" Y="1.874" />
+        <Point X="8.562" Y="1.874" />
+        <Point X="8.562" Y="1.191" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.071" Y="0.107" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAAAgQAEAAAgAAAAAQAAAIAAAEAAAACCA=</HashCode>
+      <FileName>Impl\PostServiceImpl.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_blogService" />
+      <Field Name="_tellerDatabaseUnitOfWorkFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelleR.Logic.Services.Impl.UserServiceImpl" Collapsed="true">
+    <Position X="3.5" Y="2.5" Width="2.75" />
+    <AssociationLine Name="_tellerDatabaseUnitOfWorkFactory" Type="TelleR.Logic.Tools.ITellerDatabaseUnitOfWorkFactory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="2.5" />
+        <Point X="4.75" Y="1.875" />
+        <Point X="8.562" Y="1.875" />
+        <Point X="8.562" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAUAAABAAAAAgABAAAAEAgAAgAAAARAgAgAAAIgAACA=</HashCode>
+      <FileName>Impl\UserServiceImpl.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_tellerDatabaseUnitOfWorkFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TelleR.Logic.Services.IAuthorInviteService">
+    <Position X="6.5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAkAAAIQAAAAAAAAAAAAAAAAEAAAAAAAAAAAEAgAAAA=</HashCode>
+      <FileName>IAuthorInviteService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IAwsService">
+    <Position X="0.5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>IAwsService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IBlogService">
+    <Position X="12.5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAgAAAAAAQAAgAAAABACAAAAgAAAAABCIg=</HashCode>
+      <FileName>IBlogService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IPostService">
+    <Position X="9.5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAAAgQAEAAAgAAAAAQAAAIAAAAAAAACAA=</HashCode>
+      <FileName>IPostService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Services.IUserService">
+    <Position X="3.5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAUAAABAAAAAgABAAAAEAgAAAAAAARAgAgAAAAgAAAA=</HashCode>
+      <FileName>IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TelleR.Logic.Tools.ITellerDatabaseUnitOfWorkFactory" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="2.75" />
+    <InheritanceLine Type="TelleR.Logic.UnitOfWork.IUnitOfWorkFactory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="0.938" />
+        <Point X="4.875" Y="0.938" />
+        <Point X="4.875" Y="0.938" />
+        <Point X="6.5" Y="0.938" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="TelleR.Logic.UnitOfWork.IUnitOfWorkFactory">
+    <Position X="1.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

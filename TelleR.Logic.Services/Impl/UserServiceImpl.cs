@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TelleR.Data.Dto.Request;
@@ -25,6 +27,61 @@ namespace TelleR.Logic.Services.Impl
 
         #region public methods
 
+        public async Task<UserResponseDto> Get(Int64 userId)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
+            {
+                var user = await uow.GetRepository<IUserRepository>().GetById(userId);
+                if (user == null)
+                {
+                    return null;
+                }
+
+                return new UserResponseDto
+                {
+                    Id = user.Id,
+                    FullName = $"{ user.FirstName } { user.LastName }",
+                    Avatar = user.Avatar
+                };
+            }
+        }
+
+        public async Task<ProfileResponseDto> GetProfile(Int64 userId)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
+            {
+                var user = await uow.GetRepository<IUserRepository>().GetById(userId);
+                if (user == null)
+                {
+                    return null;
+                }
+
+                return new ProfileResponseDto
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
+            }
+        }
+
+        public async Task<IEnumerable<UserResponseDto>> GetAll()
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateReadonlyUnitOfWork())
+            {
+                var result = await uow.GetRepository<IUserRepository>().GetAllQueryable().Select(x => new UserResponseDto
+                {
+                    Id = x.Id,
+                    FullName = $"{ x.FirstName } { x.LastName }",
+                    Avatar = x.Avatar
+                }).ToArrayAsync();
+
+                return result;
+            }
+        }
+
         public async Task<UserInfoResponseDto> GetUserInfo(Int64 userId)
         {
             using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
@@ -41,6 +98,7 @@ namespace TelleR.Logic.Services.Impl
                 {
                     UserId = user.Id,
                     Role = user.Role,
+                    Avatar = user.Avatar,
                     FullName = $"{user.FirstName} {user.LastName}"
                 };
             }
@@ -194,6 +252,25 @@ namespace TelleR.Logic.Services.Impl
                 }
 
                 return messages;
+            }
+        }
+
+        public async Task<Boolean> UpdateAvatar(Int64 userId, String filePath)
+        {
+            using (var uow = _tellerDatabaseUnitOfWorkFactory.CreateBasicUnitOfWork())
+            {
+                var userRepo = uow.GetRepository<IUserRepository>();
+
+                var user = await userRepo.GetById(userId);
+                if (user == null) return false;
+
+                user.Avatar = filePath;
+
+                var saved = await userRepo.SaveOrUpdate(user);
+
+                uow.Commit();
+
+                return saved != null;
             }
         }
 

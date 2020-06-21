@@ -11,7 +11,6 @@ namespace TelleR.Data.Configuration
 
             entity.HasMany(x => x.Blogs).WithOne(x => x.Owner);
             entity.HasMany(x => x.Posts).WithOne(x => x.Author);
-            entity.HasMany(x => x.Comments).WithOne(x => x.Author);
             entity.HasMany(x => x.SendedInvites).WithOne(x => x.Sender);
             entity.HasMany(x => x.ReceivedInvetes).WithOne(x => x.Receiver);
             entity.HasMany(x => x.AddedBlogs).WithOne(x => x.Author);
@@ -27,6 +26,7 @@ namespace TelleR.Data.Configuration
             entity.Property(x => x.IsActivate).IsRequired();
             entity.Property(x => x.IsBlocked).IsRequired();
             entity.Property(x => x.Role).IsRequired();
+            entity.Property(x => x.Avatar).IsRequired(false);
             entity.Property(x => x.CreateDate).IsRequired();
             entity.Property(x => x.UpdateDate).IsRequired();
             entity.Property(x => x.LastActive).IsRequired(false);
